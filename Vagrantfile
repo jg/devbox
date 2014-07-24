@@ -10,7 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "base"
+  config.vm.box = "ubuntu/trusty64"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -77,10 +77,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # You will need to create the manifests directory and a manifest in
   # the file default.pp in the manifests_path directory.
   #
-  # config.vm.provision "puppet" do |puppet|
-  #   puppet.manifests_path = "manifests"
-  #   puppet.manifest_file  = "site.pp"
-  # end
+  config.vm.provision "puppet" do |puppet|
+    puppet.manifests_path = "manifests"
+    puppet.manifest_file  = "default.pp"
+  end
 
   # Enable provisioning with chef solo, specifying a cookbooks path, roles
   # path, and data_bags path (all relative to this Vagrantfile), and adding
