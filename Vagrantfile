@@ -5,12 +5,33 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "ubuntu/trusty64"
+
+  # puppet
+  config.librarian_puppet.puppetfile_dir = "puppet"
+
+  # placeholder_filename defaults to .PLACEHOLDER
+  config.librarian_puppet.placeholder_filename = ".MYPLACEHOLDER"
+
+  config.vm.provision "puppet" do |puppet|
+    puppet.manifests_path = "puppet/manifests"
+    puppet.module_path    = "puppet/modules"
+    puppet.manifest_file  = "default.pp"
+    puppet.options = "--verbose"
+  end
+
+  # ssh
+
+  # config.ssh.username = "jg"
+
+  config.ssh.private_key_path = "/home/jg/.ssh/id_rsa"
+
   # All Vagrant configuration is done here. The most common configuration
   # options are documented and commented below. For a complete reference,
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "ubuntu/trusty64"
+  # config.vm.box = "ubuntu/trusty64"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -77,10 +98,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # You will need to create the manifests directory and a manifest in
   # the file default.pp in the manifests_path directory.
   #
-  config.vm.provision "puppet" do |puppet|
-    puppet.manifests_path = "manifests"
-    puppet.manifest_file  = "default.pp"
-  end
+  # config.vm.provision "puppet" do |puppet|
+  #   puppet.manifests_path = "puppet/manifests"
+  #   puppet.manifest_file  = "default.pp"
+  # end
 
   # Enable provisioning with chef solo, specifying a cookbooks path, roles
   # path, and data_bags path (all relative to this Vagrantfile), and adding
